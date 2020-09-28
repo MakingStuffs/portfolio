@@ -1,0 +1,52 @@
+@mixin flex-row {
+    display:flex;
+}
+@mixin flex-row-wrap {
+    display:flex;
+    flex-wrap: wrap;
+}
+@mixin flex-column {
+    display:flex;
+    flex-direction: column;
+}
+@mixin small-branding-header {
+    font-size: 1rem;
+    font-weight: 900;
+}
+@mixin button {
+    appearance: none;
+    background-color: $button-color;
+    color: $button-text;
+    transition: 0.3s ease;
+    border-radius: 5px;
+    cursor: pointer;
+    transform: scale(1);
+    border: 2px solid transparent;
+
+    &:hover {
+        background-color: $button-hover;
+        color: $button-hover-text;
+        box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.2);
+    }
+
+    &:active {
+        transform: scale(0.9);
+        box-shadow: none;
+    }
+    
+    &:active,
+    &:focus {
+        outline: none;
+        border-color:orange
+    }
+}
+@mixin overlay-fullscreen {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    background-color: rgba(black, 0.8);
+    content: "";
+}

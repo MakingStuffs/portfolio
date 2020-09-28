@@ -1,0 +1,114 @@
+.stuffs-drawer-menu {
+  .stuffs-drawer-menu__container {
+    .stuffs-drawer-menu__header {
+      .stuffs-drawer-menu__close {
+        border-radius: 0;
+        transform: rotate(2deg);
+
+        &:hover {
+          border-radius: inherit;
+          transform: rotate(0);
+        }
+
+        &:active {
+          transform: rotate(-2deg) scale(0.9);
+        }
+      }
+    }
+    .stuffs-drawer-menu__content {
+      .stuffs-drawer-menu-content__header {
+        margin: 3rem auto;
+        position: relative;
+        text-align: center;
+        padding: 0 2rem;
+        font-family: "Making Stuffs Head";
+        color: white;
+        font-size: 1.5rem;
+
+        &::before {
+          background-color: $green;
+          position: absolute;
+          transform: translate(-50%, -50%) rotate(-2deg);
+          top: 50%;
+          left: 50%;
+          content: "";
+          width: calc(100% - 2rem);
+          height: calc(100% + 2rem);
+          z-index: -1;
+        }
+      }
+
+      .stuffs-drawer-menu__links {
+        .stuffs-drawer-menu__link {
+          a {
+            margin: 2rem 0;
+            justify-content: center;
+            transition: 0.2s linear;
+
+            &::after {
+              display: none;
+            }
+
+            &::before {
+              position: absolute;
+              transform: translate(-50%, -50%) scale(0) rotate(45deg);
+              top: 50%;
+              left: 50%;
+              content: "";
+              transition: transform 0.3s ease;
+              z-index: -1;
+              background-color: $green;
+              width: calc(100% - 2rem);
+              height: calc(100% + 1rem);
+              border: 2px solid transparent;
+            }
+
+            &:focus,
+            &:hover {
+              color: white;
+              background-color: inherit;
+              &::before {
+                transform: translate(-50%, -50%) scale(1) rotate(-2deg);
+              }
+            }
+
+            &:active {
+              transform: scale(0.9);
+            }
+
+            &:focus {
+              outline: none;
+
+              &::before {
+                border-color: $orange;
+              }
+            }
+          }
+
+          &:nth-child(even) {
+            a {
+              &::before {
+                transform: translate(-50%, -50%) scale(0) rotate(-45deg);
+              }
+
+              &:focus,
+              &:hover {
+                &::before {
+                  transform: translate(-50%, -50%) scale(1) rotate(2deg);
+                }
+              }
+
+              &:focus {
+                outline: none;
+
+                &::before {
+                  border-color: $orange;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

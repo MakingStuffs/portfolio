@@ -1,0 +1,42 @@
+.stuffs-search-bar {
+    padding: $tiny-padding $small-padding;
+    display: flex;
+    border-radius: 32px;
+    border: 1px solid rgba(black, 0.1);
+    overflow: hidden;
+    transition: 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    min-width: 200px;
+
+    &:focus-within {
+        border-color: orange;
+        box-shadow: 0.2rem 0.2rem 0.6rem rgba($dark-accent, 0.2);
+    }
+
+    .stuffs-search-bar__input {
+        appearance: none;
+        border: none;
+        font-size: 1rem;
+        display: inline-block;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+        }
+    }
+    .stuffs-search-bar__submit {
+        @include button;
+        padding: 0;
+        width: $small-icon-width;
+        height: $small-icon-height;
+        border-color: transparent;
+        opacity: 0.4;
+
+        &:hover {
+            border-radius: 50%;
+            opacity: 1;
+        }
+
+    }
+}

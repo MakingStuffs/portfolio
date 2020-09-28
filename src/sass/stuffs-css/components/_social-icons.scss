@@ -1,0 +1,129 @@
+
+.stuffs-social__tiny,
+.stuffs-social__small,
+.stuffs-social__md,
+.stuffs-social__big,
+.stuffs-social {
+  display: flex;
+  justify-content: center;
+
+  a {
+    @include stuffs-icon;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    color: white;
+    position: relative;
+    transition: 0.3s ease;
+    border: 2px solid transparent;
+    margin: 0 $tiny-margin;
+
+    &::before {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: auto;
+    }
+
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+    &[href*="facebook"] {
+      background-color: $facebook;
+      &::before {
+        content: $stuffs-facebook-f;
+      }
+    }
+    &[href*="twitter"] {
+      background-color: $twitter;
+      &::before {
+        content: $stuffs-twitter;
+      }
+    }
+    &[href*="github"] {
+      background-color: $github;
+      &::before {
+        content: $stuffs-github;
+      }
+    }
+    &[href*="instagram"] {
+      background-color: $instagram;
+      &::before {
+        content: $stuffs-instagram;
+      }
+    }
+    &[href*="reddit"] {
+      background-color: $reddit;
+      &::before {
+        content: $stuffs-reddit;
+      }
+    }
+    &[href*="freecodecamp"] {
+      background-color: $freecodecamp;
+      &::before {
+        content: $stuffs-freecodecamp;
+      }
+    }
+    &[href*="stackoverflow"] {
+      background-color: $stackoverflow;
+      &::before {
+        content: $stuffs-stackoverflow;
+      }
+    }
+    &[href*="linkedin"] {
+      background-color: $linkedin;
+      &::before {
+        content: $stuffs-linkedin;
+      }
+    }
+
+    &:focus,
+    &:hover {
+      box-shadow: 0.2rem 0.2rem 0.6rem rgba(black, 0.2);
+      border-color: $focus;
+
+      .tooltip {
+        opacity: 1;
+        transform: translate(-50%, -100%) scale(1);
+      }
+    }
+
+    .tooltip {
+      top: -0.5rem;
+      &::before {
+        top: 100%;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+    }
+  }
+}
+
+.stuffs-social__tiny {
+  a {
+    width: $tiny-icon-width;
+    height: $tiny-icon-height;
+    font-size: $tiny-text;
+  }
+}
+.stuffs-social__small {
+  a {
+    width: $small-icon-width;
+    height: $small-icon-height;
+  }
+}
+.stuffs-social__md {
+  a {
+    width: $md-icon-width;
+    height: $md-icon-height;
+  }
+}
+.stuffs-social__big {
+  a {
+    width: $big-icon-width;
+    height: $big-icon-height;
+  }
+}

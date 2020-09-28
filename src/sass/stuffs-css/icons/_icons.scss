@@ -1,0 +1,326 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$stuffs-font-family}';
+  src:
+    url('#{$stuffs-font-path}/#{$stuffs-font-family}.ttf?oc92yk') format('truetype'),
+    url('#{$stuffs-font-path}/#{$stuffs-font-family}.woff?oc92yk') format('woff'),
+    url('#{$stuffs-font-path}/#{$stuffs-font-family}.svg?oc92yk##{$stuffs-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+@mixin stuffs-icon {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: '#{$stuffs-font-family}' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.stuffs-icon,
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$stuffs-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.stuffs-freecodecamp {
+  &:before {
+    content: $stuffs-freecodecamp;     
+    color: #006400;
+  }
+}
+.stuffs-stackoverflow {
+  &:before {
+    content: $stuffs-stackoverflow;     
+    color: #fe7a16;
+  }
+}
+.stuffs-linkedin {
+  &:before {
+    content: $stuffs-linkedin;     
+    color: #0077b5;
+  }
+}
+.stuffs-css3 {
+  &:before {
+    content: $stuffs-css3;     
+    color: #1572b6;
+  }
+}
+.stuffs-sass {
+  &:before {
+    content: $stuffs-sass;     
+    color: #c69;
+  }
+}
+.stuffs-shopify {
+  &:before {
+    content: $stuffs-shopify;     
+    color: #7ab55c;
+  }
+}
+.stuffs-wordpress {
+  &:before {
+    content: $stuffs-wordpress;     
+    color: #21759b;
+  }
+}
+.stuffs-php {
+  &:before {
+    content: $stuffs-php;     
+    color: #777bb4;
+  }
+}
+.stuffs-react {
+  &:before {
+    content: $stuffs-react;     
+    color: #61dafb;
+  }
+}
+.stuffs-node-dot-js {
+  &:before {
+    content: $stuffs-node-dot-js;     
+    color: #393;
+  }
+}
+.stuffs-html5 {
+  &:before {
+    content: $stuffs-html5;     
+    color: #e34f26;
+  }
+}
+.stuffs-javascript {
+  &:before {
+    content: $stuffs-javascript;     
+    color: #f7df1e;
+  }
+}
+.stuffs-update {
+  &:before {
+    content: $stuffs-update; 
+  }
+}
+.stuffs-refresh {
+  &:before {
+    content: $stuffs-refresh; 
+  }
+}
+.stuffs-add_circle_outline {
+  &:before {
+    content: $stuffs-add_circle_outline; 
+  }
+}
+.stuffs-cancel_presentation {
+  &:before {
+    content: $stuffs-cancel_presentation; 
+  }
+}
+.stuffs-tools {
+  &:before {
+    content: $stuffs-tools; 
+  }
+}
+.stuffs-info-outline {
+  &:before {
+    content: $stuffs-info-outline; 
+  }
+}
+.stuffs-github {
+  &:before {
+    content: $stuffs-github; 
+  }
+}
+.stuffs-link {
+  &:before {
+    content: $stuffs-link; 
+  }
+}
+.stuffs-timer {
+  &:before {
+    content: $stuffs-timer; 
+  }
+}
+.stuffs-trophy {
+  &:before {
+    content: $stuffs-trophy; 
+  }
+}
+.stuffs-package {
+  &:before {
+    content: $stuffs-package; 
+  }
+}
+.stuffs-truck1 {
+  &:before {
+    content: $stuffs-truck1; 
+  }
+}
+.stuffs-check-circle {
+  &:before {
+    content: $stuffs-check-circle; 
+  }
+}
+.stuffs-fast-delivery {
+  &:before {
+    content: $stuffs-fast-delivery; 
+  }
+}
+.stuffs-check-square {
+  &:before {
+    content: $stuffs-check-square; 
+  }
+}
+.stuffs-check {
+  &:before {
+    content: $stuffs-check; 
+  }
+}
+.stuffs-home {
+  &:before {
+    content: $stuffs-home; 
+  }
+}
+.stuffs-mail-list-subscribe {
+  &:before {
+    content: $stuffs-mail-list-subscribe; 
+  }
+}
+.stuffs-basket {
+  &:before {
+    content: $stuffs-basket; 
+  }
+}
+.stuffs-burger-menu {
+  &:before {
+    content: $stuffs-burger-menu; 
+  }
+}
+.stuffs-chat {
+  &:before {
+    content: $stuffs-chat; 
+  }
+}
+.stuffs-claret-down {
+  &:before {
+    content: $stuffs-claret-down; 
+  }
+}
+.stuffs-claret-left {
+  &:before {
+    content: $stuffs-claret-left; 
+  }
+}
+.stuffs-claret-right {
+  &:before {
+    content: $stuffs-claret-right; 
+  }
+}
+.stuffs-claret-up {
+  &:before {
+    content: $stuffs-claret-up; 
+  }
+}
+.stuffs-email {
+  &:before {
+    content: $stuffs-email; 
+  }
+}
+.stuffs-facebook-f {
+  &:before {
+    content: $stuffs-facebook-f; 
+  }
+}
+.stuffs-half-star {
+  &:before {
+    content: $stuffs-half-star; 
+  }
+}
+.stuffs-instagram {
+  &:before {
+    content: $stuffs-instagram; 
+  }
+}
+.stuffs-location {
+  &:before {
+    content: $stuffs-location; 
+  }
+}
+.stuffs-login {
+  &:before {
+    content: $stuffs-login; 
+  }
+}
+.stuffs-phone {
+  &:before {
+    content: $stuffs-phone; 
+  }
+}
+.stuffs-reddit {
+  &:before {
+    content: $stuffs-reddit; 
+  }
+}
+.stuffs-search {
+  &:before {
+    content: $stuffs-search; 
+  }
+}
+.stuffs-star-svg {
+  &:before {
+    content: $stuffs-star-svg; 
+  }
+}
+.stuffs-telegram {
+  &:before {
+    content: $stuffs-telegram; 
+  }
+}
+.stuffs-three-dots-horizontal {
+  &:before {
+    content: $stuffs-three-dots-horizontal; 
+  }
+}
+.stuffs-three-dots-vertical {
+  &:before {
+    content: $stuffs-three-dots-vertical; 
+  }
+}
+.stuffs-twitter {
+  &:before {
+    content: $stuffs-twitter; 
+  }
+}
+.stuffs-user {
+  &:before {
+    content: $stuffs-user; 
+  }
+}
+.stuffs-speed {
+  &:before {
+    content: $stuffs-speed; 
+  }
+}
+.stuffs-accessible_forward {
+  &:before {
+    content: $stuffs-accessible_forward; 
+  }
+}

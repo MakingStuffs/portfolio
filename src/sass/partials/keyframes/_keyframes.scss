@@ -1,0 +1,12 @@
+.fade-in {
+    animation: 1s cubic-bezier(0, 0.32, 0.76, 0.65) forwards fadeIn;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

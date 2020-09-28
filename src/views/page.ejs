@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="og:type" content="website">
+    <meta name="twitter:card" content="summary"></meta>
+    <meta name="twitter:title" content="summary"></meta>
+    <meta name="twitter:description" content="summary"></meta>
+    <meta name="twitter:site" content="@MakingStuffs"></meta>
+    <meta name="twitter:creator" content="@MakingStuffs"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Paul Singh" />
+    <%- include('partials/head-images.ejs') %>
+    <%- include(`partials/page/head-${page}.ejs`) %>
+  </head>
+  <body>
+    <%- include('partials/page/header.ejs') -%>
+    <%- include('partials/contact-form.ejs') -%>
+    <%- include(`partials/page/content-${page}.ejs`) -%>
+    <%- include('partials/nav.ejs') -%>
+    <%- include('partials/footer.ejs') -%>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+button {
+  cursor: pointer;
+  background-color: $button-color;
+  transition: 0.3s ease;
+  color: $button-text;
+
+  &:hover,
+  &:focus {
+      background-color: $button-hover;
+      color: $button-hover-text;
+  }
+}
+

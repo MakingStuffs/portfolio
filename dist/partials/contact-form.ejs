@@ -1,0 +1,137 @@
+<div
+  id="contact-container"
+  class="home-contact-form__wrapper"
+  aria-expanded="false"
+>
+  <form id="home-contact" class="home-contact-form">
+    <div class="home-contact-form__header">
+      <h3>Get in touch!</h3>
+    </div>
+    <div class="stuffs-row wrap">
+      <div class="home-contact-form__input grow">
+        <div class="home-contact-form-input__error">
+          <i class="stuffs-info-outline"></i>
+          <span class="home-contact-form-input-error__message">
+            Minimum length of 3, no special characters
+          </span>
+        </div>
+        <label for="first-name">First Name</label>
+        <input
+          id="first-name"
+          placeholder="First Name"
+          required
+          type="text"
+          name="first_name"
+          minlength="3"
+        />
+      </div>
+      <div class="home-contact-form__input grow">
+        <label for="last-name">Last Name</label>
+        <input
+          id="last-name"
+          placeholder="Last Name"
+          required
+          type="text"
+          name="last_name"
+          minlength="3"
+        />
+        <div class="home-contact-form-input__error">
+          <i class="stuffs-info-outline"></i>
+          <span class="home-contact-form-input-error__message">
+            Minimum length of 3, no special characters
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="stuffs-row wrap">
+      <div class="home-contact-form__input grow">
+        <div class="home-contact-form-input__error">
+          <i class="stuffs-info-outline"></i>
+          <span class="home-contact-form-input-error__message">
+            Enter a valid email address
+          </span>
+        </div>
+        <label for="email">Email Address</label>
+        <input
+          id="email"
+          placeholder="Email address"
+          required
+          type="email"
+          inputmode="email"
+          name="email"
+          minlength="6"
+        />
+      </div>
+      <div class="home-contact-form__input grow">
+        <div class="home-contact-form-input__error">
+          <i class="stuffs-info-outline"></i>
+          <span class="home-contact-form-input-error__message">
+            Enter 11 numbers
+          </span>
+        </div>
+        <label for="phone">Phone Number</label>
+        <input
+          id="phone"
+          placeholder="Phone number"
+          required
+          type="tel"
+          inputmode="tel"
+          name="phone"
+        />
+      </div>
+    </div>
+    <div class="stuffs-row">
+      <div class="home-contact-form__input w-100p">
+        <div class="home-contact-form-input__error">
+          <i class="stuffs-info-outline"></i>
+          <span class="home-contact-form-input-error__message">
+            Minimum length of 10, no special characters
+          </span>
+        </div>
+        <label for="subject"> Subject </label>
+        <input
+          type="text"
+          id="subject"
+          placeholder="Reason for contacting"
+          name="subject"
+          required
+          minlength="10"
+        />
+      </div>
+    </div>
+    <div class="stuffs-row">
+      <div class="home-contact-form__input w-100p">
+        <div class="home-contact-form-input__error">
+          <i class="stuffs-info-outline"></i>
+          <span class="home-contact-form-input-error__message">
+            Minimum length of 10, no special characters
+          </span>
+        </div>
+        <label for="message">Message </label>
+        <textarea
+          id="message"
+          placeholder="Your message"
+          name="message"
+          rows="3"
+          minlength="10"
+          required
+        ></textarea>
+      </div>
+    </div>
+    <div class="stuffs-row justify-center wrap">
+      <div class="home-contact-form__input submit">
+        <input type="submit" id="contact-submit" />
+      </div>
+      <div class="home-contact-form__input clear">
+        <button id="home-contact-clear" id="contact-submit">Clear</button>
+      </div>
+    </div>
+    <button
+      class="home-contact-form__close contact-close"
+      id="contact-close"
+      aria-controls="contact-container"
+    >
+      <span class="tooltip__left">Close</span>
+    </button>
+  </form>
+</div>

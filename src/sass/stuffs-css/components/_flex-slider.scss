@@ -1,0 +1,37 @@
+.stuffs-flex-slider {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: $huge-margin $big-margin;
+    overflow: auto;
+    justify-content: space-between;
+
+    .stuffs-flex-slider__tile {
+        width: 33.333%;
+        min-width: 250px;
+        max-width: 300px;
+        background-color: $container-background;
+        padding: $small-padding;
+        margin: $small-margin;
+        border-radius: 10px;
+        box-shadow: $container-shadow;
+        text-align: center;
+
+        .stuffs-flex-slider__title {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 100;
+
+            &::before {
+                @include stuffs-icon;
+                content: $stuffs-check-square;
+                display: inline-block;
+                margin-right: 0.5rem;
+                color: $orange;
+            }
+        }
+        .stuffs-flex-slider__text {
+            margin: 0;
+            font-weight: 100;
+        }
+    }
+}

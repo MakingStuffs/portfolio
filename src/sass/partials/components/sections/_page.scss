@@ -1,0 +1,39 @@
+.page-main__wrapper {
+    padding: 3rem 0;
+  .page-main__header {
+      text-align: center;
+    h1 {
+      display: inline-block;
+      position: relative;
+      max-height: unset;
+      font-family: "Making Stuffs Head";
+      margin: 2rem 0;
+      color: white;
+      transform: rotate(-2deg);
+      background-color: $green;
+      padding: 1rem;
+      font-size: 2rem;
+      max-width: 90%;
+    }
+  }
+
+  .page-main__content {
+      max-width: 900px;
+      min-width: 250px;
+      width: calc(100% - 2rem);
+      margin: 2rem auto;
+      font-size: 1.25rem;
+      font-weight: normal;
+      line-height: 1.7;
+
+      ul {
+          list-style: disc;
+          padding-left: 1rem;
+          margin: 0;
+
+          li {
+              margin: 1rem 0;
+          }
+      }
+  }
+}

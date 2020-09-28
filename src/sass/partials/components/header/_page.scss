@@ -1,0 +1,125 @@
+header.header-page__wrapper {
+    height: auto;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: relative;
+    border-bottom: 5px solid $green;
+
+  
+    .header-page__button {
+      border: none;
+      padding: 1rem;
+      position: fixed;
+      font-size: 1.5rem;
+      text-align: center;
+      box-shadow: 0 0 0.6rem rgba(black, 0.3);
+      z-index: 10;
+      height: auto;
+      width: auto;
+  
+      &.menu {
+        top: 0;
+        right: 0;
+        border-radius: 0 0 0 20px;
+      }
+  
+      &.contact {
+        bottom: 0;
+        left: 0;
+        border-radius: 0 20px 0 0;
+      }
+    }
+  
+    .header-page__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 1rem;
+  
+      .header-page__heading {
+        font-size: 1.5rem;
+        font-family: "Making Stuffs Head";
+        margin-bottom: 0.25rem;
+  
+        span[green] {
+          color: $green;
+        }
+  
+        .header-page__heading-span {
+          width: 100%;
+          font-size: 0.75rem;
+          display: block;
+          color: rgba(black, 0.7);
+          font-family: "Making Stuffs Mono";
+          margin: 0.5rem 0;
+        }
+      }
+  
+      .header-page__social {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-family: "Making Stuffs Mono";
+        opacity: 0.7;
+
+        a {
+          width: 1rem;
+          height: 1rem;
+          font-size: 0.5rem;
+        }
+  
+        .header-page-social__open-bracket,
+        .header-page-social__close-bracket,
+        .header-page-social__icons {
+          margin: 0.25rem 0;
+        }
+  
+        .header-page-social__close-bracket,
+        .header-page-social__open-bracket {
+          color: $light-blue;
+        }
+  
+        .header-page-social__open-bracket {
+          align-self: flex-start;
+        }
+  
+        .header-page-social__icons {
+          display: flex;
+  
+          a {
+            text-decoration: none;
+            font-size: 1rem;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-self: center;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s ease;
+            margin: 0.25rem;
+            position: relative;
+  
+            &[href*="twitter"]:hover,
+            &[href*="github"]:hover {
+              background-color: $button-hover;
+            }
+  
+            &[href*="twitter"] {
+              background-color: $twitter;
+            }
+            &[href*="github"] {
+              background-color: $github;
+            }
+          }
+        }
+      }
+    }
+  }
+  
