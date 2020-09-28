@@ -37,7 +37,7 @@
     "postcss-import": "^12.0.1",
     "postcss-loader": "^4.0.2",
     "postcss-preset-env": "^6.7.0",
-    "preload-webpack-plugin": "file:../../preload-webpack-plugin",
+    "preload-webpack-plugin": "git+https://github.com/MakingStuffs/preload-webpack-plugin.git",
     "purgecss-webpack-plugin": "^3.0.0",
     "raw-loader": "^4.0.1",
     "sass": "^1.26.10",
