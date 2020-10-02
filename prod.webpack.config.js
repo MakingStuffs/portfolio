@@ -1,5 +1,4 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const BrowserSync = require("browser-sync-webpack-plugin");
 const ExtractCSSChunks = require("extract-css-chunks-webpack-plugin");
 const PreloadWebpackPlugin = require("preload-webpack-plugin");
 const PurgeCssPlugin = require("purgecss-webpack-plugin");
@@ -7,6 +6,10 @@ const glob = require("glob");
 
 const fs = require("fs");
 const path = require("path");
+
+const PATHS = {
+  src: path.join(__dirname, 'src')
+}
 
 const config = {
   entry: {
@@ -20,7 +23,17 @@ const config = {
   mode: "production",
   optimization: {
     splitChunks: {
-      chunks: "all",
+      cacheGroups: {
+        js: { 
+          test: /\.js$/,
+          chunks: 'all'
+        },
+        styles: {
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
     },
   },
   target: "web",
@@ -141,25 +154,25 @@ const config = {
     new HtmlWebpackPlugin({
       template: "raw-loader!./src/views/index.ejs",
       filename: "index.ejs",
-      blocking: "defer"
+      scriptLoading: "defer",
     }),
     new HtmlWebpackPlugin({
       template: "raw-loader!./src/views/page.ejs",
       filename: "page.ejs",
-      blocking: "defer"
+      scriptLoading: "defer"
     }),
     new HtmlWebpackPlugin({
       template: "raw-loader!./src/views/404.ejs",
       filename: "404.ejs",
-      blocking: "defer"
+      scriptLoading: "defer"
     }),
     new PreloadWebpackPlugin({
       rel:"preload",
       include: "allAssets",
-      fileBlacklist: [/\.(png|jpg|jpeg)$/],
+      fileBlacklist: [/\.(png|jpg|jpeg|ico|js)$/],
       as(entry) {
-        if (/\.css$/.test(entry)) return 'style';
         if (/\.(woff|ttf)$/.test(entry)) return 'font';
+        if (/\.(css)$/.test(entry)) return 'style';
         return 'script';
       }
     }),
@@ -167,7 +180,7 @@ const config = {
       filename: "assets/css/[name].[hash].css",
     }),
     new PurgeCssPlugin({
-      paths: glob.sync(`${path.join(__dirname, "src")}/**/*`, { nodir: true }),
+      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true })
     }),
   ],
 };

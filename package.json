@@ -24,6 +24,7 @@
     "eslint-loader": "^4.0.2",
     "extract-css-chunks-webpack-plugin": "^4.7.5",
     "file-loader": "^6.1.0",
+    "glob": "^7.1.6",
     "html-loader": "^1.3.0",
     "html-webpack-plugin": "^4.4.1",
     "imagemin": "^7.0.1",
@@ -47,14 +48,15 @@
     "webpack-dev-middleware": "^3.7.2"
   },
   "dependencies": {
-    "serve-favicon": "^2.5.0",
-    "ejs": "^3.1.5",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "helmet": "^4.1.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "serve-favicon": "^2.5.0",
+    "spdy": "^4.0.2"
   }
 }
