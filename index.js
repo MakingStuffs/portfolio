@@ -9,6 +9,6 @@ const secureServer = spdy.createServer({
   cert: fs.readFileSync(config.SSL_CERT)
 }, app);
 
-secureServer.listen(config.PORT, () => {
-  logger.info(`Connected on port ${config.PORT}`);
+secureServer.listen(0, () => {
+  logger.info(`Connected on port ${secureServer.address().port}`);
 });
