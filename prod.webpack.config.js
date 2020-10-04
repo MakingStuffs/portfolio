@@ -13,7 +13,9 @@ const PATHS = {
 
 const config = {
   entry: {
-    main: "./src/js/main.js",
+    base: "./src/js/main.js",
+    home: ["./src/js/modules/intersection-observer.js", "./src/js/modules/modals.js"],
+    page: ["./src/js/modules/intersection-observer.js"]
   },
   output: {
     filename: "assets/js/[name].[hash].js",
@@ -155,21 +157,24 @@ const config = {
       template: "raw-loader!./src/views/index.ejs",
       filename: "index.ejs",
       scriptLoading: "defer",
+      excludeChunks: ["page"]
     }),
     new HtmlWebpackPlugin({
       template: "raw-loader!./src/views/page.ejs",
       filename: "page.ejs",
-      scriptLoading: "defer"
+      scriptLoading: "defer",
+      excludeChunks: ["home"]
     }),
     new HtmlWebpackPlugin({
       template: "raw-loader!./src/views/404.ejs",
       filename: "404.ejs",
-      scriptLoading: "defer"
+      scriptLoading: "defer",
+      excludeChunks: ["home"]
     }),
     new PreloadWebpackPlugin({
       rel:"preload",
       include: "allAssets",
-      fileBlacklist: [/\.(png|jpg|jpeg|ico|js)$/],
+      fileBlacklist: [/\.(png|jpg|jpeg|ico|js|ejs)$/],
       as(entry) {
         if (/\.(woff|ttf)$/.test(entry)) return 'font';
         if (/\.(css)$/.test(entry)) return 'style';
@@ -204,7 +209,7 @@ const ejsPartialsLoader = (filePath, outputPath, loader, config) => {
           new HtmlWebpackPlugin({
             template: usePath + partial,
             filename: outputPath + partial,
-            excludeChunks: ["main"],
+            excludeChunks: ["home", "base"],
           })
         );
       }

@@ -1,6 +1,6 @@
 const indexRouter = require("express").Router();
 
-indexRouter.get("/", (req, res, next) => {
+indexRouter.get("/", (req, res) => {
   res.render("index.ejs");
 });
 

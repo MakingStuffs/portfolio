@@ -130,7 +130,8 @@ import { msQueryAll, msQuery } from "making-stuffs-queries";
     if (event.keyCode === 16) {
       shiftDown = true;
       return;
-    } if (event.keyCode === 9) {
+    }
+    if (event.keyCode === 9) {
       event.preventDefault();
       return;
     }
@@ -147,7 +148,7 @@ import { msQueryAll, msQuery } from "making-stuffs-queries";
         return handleFormSubmit.call(this, event);
       // shift
       case 16:
-        return shiftDown = false;
+        return (shiftDown = false);
       // Tab
       case 9:
         return shiftDown
@@ -201,7 +202,7 @@ import { msQueryAll, msQuery } from "making-stuffs-queries";
 
   function menuToggle(event, close = null) {
     event.preventDefault();
-    
+
     if (close || this.classList.contains("contact-close")) {
       wrapper.setAttribute("aria-expanded", "false");
       wrapper.blur();
@@ -211,16 +212,16 @@ import { msQueryAll, msQuery } from "making-stuffs-queries";
       if (associatedMenu) {
         associatedMenu.setAttribute("aria-expanded", "false");
       }
-      
+
       wrapper.setAttribute("aria-expanded", "true");
-      
+
       const firstElement = form.elements[0];
 
       this.blur();
       form.ontransitionend = () => {
         form.elements[0].focus();
         form.ontransitionend = null;
-      }
+      };
     }
   }
 

@@ -24,4 +24,6 @@ function toggleModal(event) {
   }
 }
 
-modalButtons.forEach((button) => button.addEventListener("click", toggleModal));
+if( modalButtons.length > 0 ) {
+  modalButtons.forEach((button) => button.addEventListener("click", toggleModal));
+}

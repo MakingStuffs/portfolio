@@ -20,6 +20,8 @@ const callback = (entries, observer) => {
 
 const observer = new IntersectionObserver(callback, options);
 
-targets.forEach((target) => {
-  observer.observe(target);
-});
+if (targets && targets.length > 0) {
+  targets.forEach((target) => {
+    observer.observe(target);
+  });
+}
