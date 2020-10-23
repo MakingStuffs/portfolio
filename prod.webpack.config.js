@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ExtractCSSChunks = require("extract-css-chunks-webpack-plugin");
 const PreloadWebpackPlugin = require("preload-webpack-plugin");
@@ -6,36 +8,40 @@ const glob = require("glob");
 
 const fs = require("fs");
 const path = require("path");
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 const PATHS = {
-  src: path.join(__dirname, 'src')
-}
+  src: path.join(__dirname, "src"),
+};
 
 const config = {
   entry: {
-    base: "./src/js/main.js",
-    home: ["./src/js/modules/intersection-observer.js", "./src/js/modules/modals.js"],
-    page: ["./src/js/modules/intersection-observer.js"]
+    base: ["./src/js/main.js", "./src/sass/style.scss"],
+    home: [
+      "./src/js/modules/intersection-observer.js",
+      "./src/js/modules/modals.js",
+    ],
+    page: ["./src/js/modules/intersection-observer.js"],
   },
   output: {
     filename: "assets/js/[name].[hash].js",
     path: path.resolve(__dirname, "public"),
     publicPath: "/",
   },
-  mode: "production",
+  mode: process.env.NODE_ENV,
   optimization: {
     splitChunks: {
       cacheGroups: {
-        js: { 
+        js: {
           test: /\.js$/,
-          chunks: 'all'
+          chunks: "all",
         },
         styles: {
           test: /\.css$/,
-          chunks: 'all',
-          enforce: true
-        }
-      }
+          chunks: "all",
+          enforce: true,
+        },
+      },
     },
   },
   target: "web",
@@ -62,7 +68,8 @@ const config = {
           {
             loader: ExtractCSSChunks.loader,
             options: {
-              hot: false,
+              hot: () =>
+                process.env.NODE_ENV === "development" ? true : false,
             },
           },
           {
@@ -122,7 +129,7 @@ const config = {
                 require("imagemin-mozjpeg")({
                   progressive: true,
                   arithmetic: false,
-                  quality: 85
+                  quality: 85,
                 }),
                 require("imagemin-pngquant")({
                   floyd: 0.5,
@@ -157,35 +164,35 @@ const config = {
       template: "raw-loader!./src/views/index.ejs",
       filename: "index.ejs",
       scriptLoading: "defer",
-      excludeChunks: ["page"]
+      excludeChunks: ["page"],
     }),
     new HtmlWebpackPlugin({
       template: "raw-loader!./src/views/page.ejs",
       filename: "page.ejs",
       scriptLoading: "defer",
-      excludeChunks: ["home"]
+      excludeChunks: ["home"],
     }),
     new HtmlWebpackPlugin({
       template: "raw-loader!./src/views/404.ejs",
       filename: "404.ejs",
       scriptLoading: "defer",
-      excludeChunks: ["home"]
+      excludeChunks: ["home"],
     }),
     new PreloadWebpackPlugin({
-      rel:"preload",
+      rel: "preload",
       include: "allAssets",
-      fileBlacklist: [/\.(png|jpg|jpeg|ico|js|ejs)$/],
+      fileBlacklist: [/\.(png|jpg|jpeg|ico|js|ejs|svg)$/],
       as(entry) {
-        if (/\.(woff|ttf)$/.test(entry)) return 'font';
-        if (/\.(css)$/.test(entry)) return 'style';
-        return 'script';
-      }
+        if (/\.(woff|ttf)$/.test(entry)) return "font";
+        if (/\.(css)$/.test(entry)) return "style";
+        return "script";
+      },
     }),
     new ExtractCSSChunks({
       filename: "assets/css/[name].[hash].css",
     }),
     new PurgeCssPlugin({
-      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true })
+      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
     }),
   ],
 };
@@ -209,7 +216,7 @@ const ejsPartialsLoader = (filePath, outputPath, loader, config) => {
           new HtmlWebpackPlugin({
             template: usePath + partial,
             filename: outputPath + partial,
-            excludeChunks: ["home", "base"],
+            excludeChunks: ["home", "base", "page"],
           })
         );
       }
@@ -218,6 +225,14 @@ const ejsPartialsLoader = (filePath, outputPath, loader, config) => {
 
   return addPartials(filePath, outputPath);
 };
+
+if ( process.env.NODE_ENV === "development" ) {
+  config.plugins.push(new BrowserSyncPlugin({
+    files: ["**/*.ejs", "**/*.scss"],
+    proxy: "https://localhost:3000/"
+  }))
+}
+
 
 ejsPartialsLoader("./src/views/partials/", "partials/", null, config);
 
