@@ -3,11 +3,11 @@ const logger = require("../utils/logger");
 const middleware = require("../utils/middleware");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
-const config = require("../../../resinfusion/server/utils/config");
+const config = require("../utils/config");
 
 contactRouter.post(
   "/submit",
-  multer.none(),
+  multer().none(),
   middleware.validateRecaptcha,
   middleware.validateInput,
   (req, res, next) => {
@@ -15,9 +15,10 @@ contactRouter.post(
       const transporter = nodemailer.createTransport({
         host: config.MAILER_HOST,
         port: config.MAILER_PORT,
+        secure: true,
         auth: {
-          cert: config.SSL_CERT,
-          key: config.SSL_KEY,
+          user: config.MAILER_USER,
+          pass: config.MAILER_USER_PASS,
         },
       });
 
