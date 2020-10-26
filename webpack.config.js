@@ -9,8 +9,8 @@ const config = {
     main: "./src/js/main.js",
   },
   output: {
-    filename: "assets/js/[name].js",
-    path: path.resolve(__dirname, "dist"),
+    filename: "assets/js/[name].[hash].js",
+    path: path.resolve(__dirname, "public"),
     publicPath: "/",
   },
   mode: "development",
