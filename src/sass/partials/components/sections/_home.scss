@@ -274,8 +274,8 @@
             text-align: center;
             visibility: hidden;
 
-            h3, 
-            p, 
+            h3,
+            p,
             .home-section-recent-work-tile__buttons {
               transform: rotate(2deg);
             }
@@ -299,7 +299,7 @@
               left: 0;
               border-radius: 0;
               font-size: 0.75rem;
-              color: white
+              color: white;
             }
 
             .home-section-recent-work-tile__buttons {
@@ -308,7 +308,6 @@
               align-items: center;
               font-size: 0.75rem;
               margin-top: 1rem;
-
 
               button,
               a {
@@ -327,8 +326,7 @@
                   transform: rotate(2deg);
                 }
 
-                &:focus
-                &:hover {
+                &:focus &:hover {
                   background-color: $blue;
                 }
 
@@ -360,7 +358,8 @@
     max-width: 0;
     opacity: 0;
     visibility: hidden;
-    transition: max-width 0s linear 0.6s, visibility 0s ease 0.6s, opacity 0.3s linear 0.3s;
+    transition: max-width 0s linear 0.6s, visibility 0s ease 0.6s,
+      opacity 0.3s linear 0.3s;
 
     .home-contact-form {
       max-width: 0;
@@ -369,18 +368,127 @@
       transform: translate(-100%, -50%);
     }
   }
-  
+
   &[aria-expanded="true"] {
     max-width: 100%;
     opacity: 1;
     visibility: visible;
-    transition: max-width 0s linear, visibility 0s linear, opacity 0.3s linear 0.1s;
+    transition: max-width 0s linear, visibility 0s linear,
+      opacity 0.3s linear 0.1s;
 
     .home-contact-form {
       transition: 0.3s linear 0.3s;
       transform: translate(-50%, -50%);
       max-width: 600px;
       left: 50%;
+    }
+  }
+
+  .home-contact__response {
+    background-color: rgba(black, 0.7);
+    position: absolute;
+    display: block;
+    padding: 1rem;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+
+    &[aria-visible="true"] {
+      transform: translate(-50%, -50%);
+      visibility: visible;
+      opacity: 1;
+      top: 50%;
+      max-height: 100%;
+    }
+
+    &[aria-visible="false"] {
+      transform: translate(-50%, -100%);
+      visibility: hidden;
+      opacity: 0;
+      max-height: 0;
+      top: 0;
+    }
+
+    &.error {
+      .home-contact-response__content {
+        h4.home-contact-response__header {
+          background-color: $red;
+        }
+      }
+    }
+
+    .home-contact-response__content {
+      background-color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 1rem;
+      display: block;
+      text-align: center;
+
+      .home-contact-response__header,
+      .home-contact-response__text {
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .home-contact-response__header {
+        font-size: 1.25rem;
+        color: rgba(black, 0.9);
+        -webkit-transform: translate(-5%, -25%) rotate(-2deg);
+        transform: translate(-5%, -25%) rotate(-2deg);
+        background-color: #3dba5b;
+        padding: 0.5rem;
+        color: white;
+        font-weight: normal;
+        display: inline-block;
+        margin: -1rem 0 0 0;
+        max-width: 80%;
+      }
+
+      .home-contact-response__text {
+        font-size: 1rem;
+        color: rgba(black, 0.7);
+        margin: 1.5rem 0;
+      }
+
+      button {
+        background-color: transparent;
+        position: relative;
+        transition: 0.3s ease;
+        margin: 1rem 0.5rem;
+        border: 2px solid transparent;
+        padding: 0.5rem;
+
+        &::before {
+          width: 100%;
+          z-index: -1;
+          position: absolute;
+          left: 0;
+          height: 2px;
+          background-color: $blue;
+          content: "";
+          bottom: 0;
+          transition: 0.3s ease;
+        }
+
+        &:focus,
+        &:active,
+        &:hover {
+          &::before {
+            height: 100%;
+          }
+        }
+
+        &:focus,
+        &:active {
+          border-color: $orange;
+          outline: none;
+          box-shadow: 0 0 0.6rem rgba(black, 0.2);
+        }
+      }
     }
   }
 
