@@ -1,4 +1,6 @@
 import { msQueryAll, msQuery } from "making-stuffs-queries";
+import regeneratorRuntime from "regenerator-runtime";
+import { load } from "recaptcha-v3";
 
 (() => {
   const openButtons = msQueryAll(".contact-open");
@@ -126,6 +128,39 @@ import { msQueryAll, msQuery } from "making-stuffs-queries";
     }
   };
 
+  const getRecaptchaToken = async (event) => {
+    try {
+      const recaptcha = await load("6LchCtkZAAAAALwQQto3xBWJXrXSG9EipvjABNGt");
+      const token = await recaptcha.execute("submit");
+      return token;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const setLoader = () => {
+    const loader = msQuery(".page-loader");
+    if (!loader) return;
+    const loading = loader.getAttribute("aria-visible");
+    return loading === "true"
+      ? loader.setAttribute("aria-visible", "false")
+      : loader.setAttribute("aria-visible", "true");
+  };
+
+  const sendForm = async (data) => {
+    try {
+      const request = await fetch("/contact/submit", {
+        method: "POST",
+        body: data,
+      });
+      const response = await request.json();
+
+      return handleFormResponse(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   function handleKeyDown(event) {
     if (event.keyCode === 16) {
       shiftDown = true;
@@ -186,18 +221,111 @@ import { msQueryAll, msQuery } from "making-stuffs-queries";
     const parent = this.parentNode;
     parent.classList.remove("validating");
     return isValid
-      ? (parent.classList.add("valid"), parent.classList.remove("invalid"))
-      : (parent.classList.remove("valid"), parent.classList.add("invalid"));
+      ? (parent.classList.add("valid"),
+        parent.classList.remove("invalid"),
+        true)
+      : (parent.classList.remove("valid"),
+        parent.classList.add("invalid"),
+        false);
   }
 
-  function handleFormSubmit(event) {
+  async function handleFormSubmit(event) {
     event.preventDefault();
+
+    setLoader();
+
+    const recaptchaToken = await getRecaptchaToken(event);
+
+    let isValid;
+
+    if (!recaptchaToken) {
+      return handleFormResponse(event);
+    }
+
     for (let field of form) {
       if (field.type === "submit") {
-        return;
+        continue;
       }
-      handleFieldValidation.call(field);
+      if (!handleFieldValidation.call(field)) {
+        isValid = false;
+      } else {
+        isValid = true;
+      }
     }
+
+    if (!isValid) {
+      return setTimeout(() => {
+        setLoader();
+      }, 1000);
+    }
+
+    const requestData = new FormData(form);
+    requestData.append("token", recaptchaToken);
+    sendForm(requestData);
+  }
+
+  function handleFormResponse(response) {
+    const responseElement = msQuery(
+      ".home-contact__response",
+      form.parentElement
+    );
+
+    const responseHeader = msQuery(
+      ".home-contact-response__header",
+      responseElement
+    );
+    const responseText = msQuery(
+      ".home-contact-response__text",
+      responseElement
+    );
+    const closeButton = msQuery(
+      ".home-contact-response__close",
+      responseElement
+    );
+    const saveButton = msQuery(".home-contact-response__save", responseElement);
+
+    if (response.success) {
+      responseElement.classList.add("success");
+      responseElement.classList.remove("error");
+      responseHeader.textContent = "Success";
+      responseText.textContent =
+        "Your message has been received and I will  reply as soon as possible.";
+    } else {
+      responseElement.classList.add("error");
+      responseElement.classList.remove("success");
+      responseHeader.textContent = "Error";
+      responseText.textContent =
+        "There has been an error sending your message. Try saving your input and refreshing the page.";
+    }
+
+    const toggle = () =>
+      responseElement.getAttribute("aria-visible") === "true"
+        ? responseElement.setAttribute("aria-visible", "false")
+        : responseElement.setAttribute("aria-visible", "true");
+
+    const saveInput = () => {
+      const fields = getFormFields(form).reduce((acc, curr) => {
+        if (curr.value !== "" && curr.name !== "") {
+          acc[curr.name.toLowerCase()] = curr.value;
+        }
+        return acc;
+      }, {});
+      const storage = window.localStorage;
+      storage.setItem("formData", JSON.stringify(fields));
+    };
+
+    if (!closeButton.onclick) {
+      closeButton.onclick = toggle;
+    }
+
+    if (!saveButton.onclick) {
+      saveButton.onclick = saveInput;
+    }
+
+    setTimeout(() => {
+      responseElement.setAttribute("aria-visible", "true");
+      setLoader();
+    }, 1000);
   }
 
   function menuToggle(event, close = null) {
