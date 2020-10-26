@@ -1,0 +1,113 @@
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(black, 0.8);
+  z-index: 11;
+
+  &[aria-visible="false"] {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    transition: opacity 0.3s linear 0s, max-height 0.1s linear 0.5s,
+      visibility 0.1s linear 0.5s;
+
+    .loader-dots {
+      .loader-dot {
+        animation: none;
+        opacity: 0;
+        &::after,
+        &::before {
+          animation: none;
+        }
+      }
+    }
+  }
+
+  &[aria-visible="true"] {
+    opacity: 1;
+    visibility: visible;
+    max-height: 100000%;
+    transition: max-height 0.1s linear 0s, visibility 0.1s linear 0s,
+      opacity 0.3s linear 0.2s;
+
+    .loader-dots {
+      .loader-dot {
+        opacity: 1;
+        animation: bounce 2s infinite ease-in-out;
+        animation-delay: 0.75s;
+
+        &::after,
+        &::before {
+          animation: bounce 2s infinite ease-in-out;
+        }
+
+        &::after {
+          animation-delay: 1.5s;
+        }
+      }
+    }
+  }
+
+  .loader-dots {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 4rem;
+    width: 5rem;
+    background-color: $green;
+
+    .loader-dot {
+      height: 1rem;
+      width: 1rem;
+      border-radius: 50%;
+      background-color: #333;
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      animation-delay: 0s;
+      will-change: transform, background-color;
+      transform: translate(-50%, -50%);
+
+      &::after,
+      &::before {
+        transform: translate(-50%, -50%);
+        height: 1rem;
+        width: 1rem;
+        border-radius: 50%;
+        background-color: #333;
+        content: "";
+        position: absolute;
+        will-change: transform, background-color;
+      }
+
+      &::before {
+        top: 50%;
+        left: calc(50% - 1.5rem);
+      }
+      &::after {
+        top: 50%;
+        left: calc(50% + 1.5rem);
+      }
+    }
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: translate(-50%, -0%);
+    background-color: #333;
+  }
+  50% {
+    transform: translate(-50%, -100%);
+    background-color: rgba(#333, 0.8);
+  }
+  100% {
+    transform: translate(-50%, -0%);
+    background-color: #333;
+  }
+}
