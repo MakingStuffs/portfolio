@@ -13,18 +13,26 @@
     <meta name="author" content="Paul Singh" />
     <meta
     name="description"
-    content="Have a read of my privacy policy. I have kept it as simple and brief as possible."
+    content="Fullstack web/app developer from London, UK. Specialising in modern JavaScript, WordPress, Node JS and many frameworks/ libraries. Currently freelancing and open to offers."
     />
     <meta name="og:title" content="Making Stuffs // Full Stack Web Developer" />
     <meta
       name="og:description"
-      content="Have a read of my privacy policy. I have kept it as simple and brief as possible."
+      content="Fullstack web/app developer from London, UK. Specialising in modern JavaScript, WordPress, Node JS and many frameworks/ libraries. Currently freelancing and open to offers."
     />
     <title>Making Stuffs // Full Stack Web Developer</title>
     <%- include('partials/head-images.ejs') %>
   </head>
   <body>
+    <div class="page-loader" aria-visible="false">
+      <div class="loader-dots">
+        <span class="loader-dot"></span>
+      </div>
+    </div>
     <%- include('partials/home/header.ejs') %>
+    <% if (recaptcha_key) { %>
+      <script nonce="<%= nonce %>" src="https://www.google.com/recaptcha/api.js?render=<%= recaptcha_key %>" defer></script>
+      <% } %>
     <%- include('partials/contact-form.ejs') %>
     <%- include('partials/nav.ejs') %>
     <%- include('partials/home/about-me.ejs') %>
