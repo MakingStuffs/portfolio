@@ -1,6 +1,9 @@
 const { response } = require("express");
 const logger = require("./logger");
 const compression = require("compression");
+const fetch = require("node-fetch");
+const config = require("../utils/config");
+const { body, validationResult } = require('express-validator');
 
 const requestLogger = (req, res, next) => {
   logger.info(`Method: ${req.method}`);
@@ -28,7 +31,7 @@ const shouldCompress = (req, res) => {
   return compression.filter(req, res);
 };
 
-const validateRecaptcha = (req, res, next) => {
+const validateRecaptcha = async (req, res, next) => {
   try {
     const reply = await fetch(config.RECAPTCHA_URL, {
       method: "POST",
@@ -52,20 +55,20 @@ const validateRecaptcha = (req, res, next) => {
   }
 };
 
-const validateInput = (req, res, next) => {
+const validateInput = async (req, res, next) => {
   try {
     const validations = [
-      body('first').isAlpha().isLength( { min: 3 }),
-      body('last').isAlpha().isLength( { min: 3 }),
-      body('email').isEmail(),
-      body('subject').isAlphanumeric().isLength({ min: 5 }),
-      body('message').isAlphanumeric().isLength({ min: 5 }),
+      body("first_name").isAlpha().isLength({ min: 3 }),
+      body("last_name").isAlpha().isLength({ min: 3 }),
+      body("email").isEmail(),
+      body("subject").isLength({ min: 5 }),
+      body("message").isLength({ min: 5 }),
     ];
     await Promise.all(validations.map((validation) => validation.run(req)));
     const errors = validationResult(req);
     return errors.isEmpty()
       ? next()
-      : res.status(422).json({ errors: errors.array() });
+      : (res.status(422).json({ errors: errors.array() }), next(errors));
   } catch (error) {
     next(error);
   }
@@ -73,16 +76,16 @@ const validateInput = (req, res, next) => {
 
 const getMailerInfo = (data) => {
   return {
-    from: `Resinfusion.co.uk <${config.MAILER_USER}>`,
+    from: `MakingStuffs.co.uk <${config.MAILER_USER}>`,
     to: config.MAILER_RECIPIENT,
     replyTo: data.email,
-    subject: `Message from ${data.first} ${data.last} Regarding: ${data.subject}`,
-    text: `Name: ${data.first} ${data.last}
+    subject: `Message from ${data.first_name} ${data.last_name} Regarding: ${data.subject}`,
+    text: `Name: ${data.first_name} ${data.last_name}
     Email: ${data.email}
     Message: ${data.message}`,
     html: `
     <div style="display:block">
-      Name: ${data.first} ${data.last}
+      Name: ${data.first_name} ${data.last_name}
     </div>
     <div style="display:block">
       Email: ${data.email}
@@ -91,7 +94,7 @@ const getMailerInfo = (data) => {
       Message: ${data.message}
     </div>`,
   };
-}
+};
 
 module.exports = {
   requestLogger,
@@ -100,5 +103,5 @@ module.exports = {
   shouldCompress,
   validateRecaptcha,
   validateInput,
-  getMailerInfo
+  getMailerInfo,
 };
