@@ -8,7 +8,8 @@
     "dev": "webpack --config prod.webpack.config.js --watch",
     "build": "rm -r -rf public && webpack --production --config prod.webpack.config.js",
     "start": "pm2 start index.js --name makingstuffs-app",
-    "stop": "pm2 stop makingstuffs-app"
+    "stop": "pm2 stop makingstuffs-app",
+    "lint": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
