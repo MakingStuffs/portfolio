@@ -1,47 +1,47 @@
-const { response } = require("express");
-const logger = require("./logger");
-const compression = require("compression");
-const fetch = require("node-fetch");
-const config = require("../utils/config");
-const { body, validationResult } = require('express-validator');
+const { response } = require('express')
+const logger = require('./logger')
+const compression = require('compression')
+const fetch = require('node-fetch')
+const config = require('../utils/config')
+const { body, validationResult } = require('express-validator')
 
 const requestLogger = (req, res, next) => {
-  logger.info(`Method: ${req.method}`);
-  logger.info(`Path: ${req.path}`);
-  logger.info(`Body: ${req.body}`);
-  next();
-};
+  logger.info(`Method: ${req.method}`)
+  logger.info(`Path: ${req.path}`)
+  logger.info(`Body: ${req.body}`)
+  next()
+}
 
-const unknownEndpoint = (req, res, next) => {
-  res.status(404).render("404.ejs");
-};
+const unknownEndpoint = (req, res) => {
+  res.status(404).render('404.ejs')
+}
 
 const errorHandler = (error, req, res, next) => {
-  logger.error(error.message);
-  response.status(400).json({ error: error.message });
-  next(error);
-};
+  logger.error(error.message)
+  response.status(400).json({ error: error.message })
+  next(error)
+}
 
 const shouldCompress = (req, res) => {
-  if (req.headers["x-no-compression"]) {
+  if (req.headers['x-no-compression']) {
     // don't compress responses with this request header
-    return false;
+    return false
   }
   // fallback to standard filter function
-  return compression.filter(req, res);
-};
+  return compression.filter(req, res)
+}
 
 const validateRecaptcha = async (req, res, next) => {
   try {
     const reply = await fetch(config.RECAPTCHA_URL, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: `secret=${config.RECAPTCHA_SECRET}&response=${req.body.token}`,
-    });
+    })
 
-    const data = await reply.json();
+    const data = await reply.json()
 
     return data.success !== true
       ? res.status(422).json({
@@ -49,30 +49,30 @@ const validateRecaptcha = async (req, res, next) => {
           msg:
             "Google seems to think you're a bot. Please resubmit the form and verify that you are not.",
         })
-      : next();
+      : next()
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const validateInput = async (req, res, next) => {
   try {
     const validations = [
-      body("first_name").isAlpha().isLength({ min: 3 }),
-      body("last_name").isAlpha().isLength({ min: 3 }),
-      body("email").isEmail(),
-      body("subject").isLength({ min: 5 }),
-      body("message").isLength({ min: 5 }),
-    ];
-    await Promise.all(validations.map((validation) => validation.run(req)));
-    const errors = validationResult(req);
+      body('first_name').isAlpha().isLength({ min: 3 }),
+      body('last_name').isAlpha().isLength({ min: 3 }),
+      body('email').isEmail(),
+      body('subject').isLength({ min: 5 }),
+      body('message').isLength({ min: 5 }),
+    ]
+    await Promise.all(validations.map((validation) => validation.run(req)))
+    const errors = validationResult(req)
     return errors.isEmpty()
       ? next()
-      : (res.status(422).json({ errors: errors.array() }), next(errors));
+      : (res.status(422).json({ errors: errors.array() }), next(errors))
   } catch (error) {
-    next(error);
+    next(error)
   }
-};
+}
 
 const getMailerInfo = (data) => {
   return {
@@ -93,8 +93,8 @@ const getMailerInfo = (data) => {
     <div style="display:block">
       Message: ${data.message}
     </div>`,
-  };
-};
+  }
+}
 
 module.exports = {
   requestLogger,
@@ -104,4 +104,4 @@ module.exports = {
   validateRecaptcha,
   validateInput,
   getMailerInfo,
-};
+}
